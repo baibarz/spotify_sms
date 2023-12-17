@@ -2,6 +2,8 @@ Spotify SMS Controller
 
 
 Description
+
+
 The Spotify SMS Controller is a Python application that allows users to control Spotify playback through SMS commands. It uses a GSM modem to receive SMS messages and the Spotify API to manage music playback.
 
 Features
