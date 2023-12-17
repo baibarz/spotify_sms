@@ -19,3 +19,9 @@ def init_modem():
 
 def delete_sms(index):
     send_at_command(f'AT+CMGD={index}')
+
+def send_sms_response(message, recipient_number):
+    send_at_command('AT+CMGS="' + recipient_number + '"')
+    ser.write(message.encode() + b"\r")
+    ser.write(bytes([26]))  # ASCII code for CTRL+Z
+ 
