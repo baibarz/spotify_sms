@@ -1,12 +1,9 @@
-
-
 # spotify_controller.py
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 # Spotify Credentials and Setup
-cache_path = '/home/spotify_sms/.cache'
 SPOTIFY_CLIENT_ID = '2978daaf8a6845b9bd5036c89fe33179'
 SPOTIFY_CLIENT_SECRET = '37d229b68df74e4ba187be68b61d9ff3'
 SPOTIFY_REDIRECT_URI = 'http://localhost:8888/callback'
