@@ -3,7 +3,7 @@
 import threading
 import time
 from sms_handler import init_modem, send_at_command, delete_sms, send_sms_response
-from spotify_controller import search_and_play, is_track_playing
+from spotify_controller import search_and_play, is_track_playing, skip_current_track
 from queue import Queue
 
 song_queue = Queue()
@@ -33,11 +33,11 @@ def check_for_new_sms():
 def handle_sms(sms_content, sender_number):
     global current_song_playing
     if 'skip' in sms_content.lower():
-        # Code to skip current track
+        skip_current_track()
         send_sms_response("Skipping current track.", sender_number)
     elif 'remove' in sms_content.lower():
-        # Code to remove specific track from queue
-        send_sms_response("Removing specified track from queue.", sender_number)
+        # Placeholder for future remove functionality
+        send_sms_response("Remove functionality not implemented yet.", sender_number)
     else:
         song_queue.put((sms_content, sender_number))
         send_sms_response("Your request is added to the queue.", sender_number)

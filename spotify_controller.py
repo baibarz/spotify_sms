@@ -6,7 +6,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from queue import Queue
 
 # Spotify Credentials and Setup
-cache_path = '/home/spotify_sms/.spotipy_cache'
+cache_path = '/home/spotify_sms/.cache'
 SPOTIFY_CLIENT_ID = '2978daaf8a6845b9bd5036c89fe33179'
 SPOTIFY_CLIENT_SECRET = '37d229b68df74e4ba187be68b61d9ff3'
 SPOTIFY_REDIRECT_URI = 'http://localhost:8888/callback'
@@ -57,11 +57,23 @@ def is_track_playing():
 
 def search_and_play(query):
     try:
-        results = sp.search(q=query, limit=1, type='track')
-        tracks = results['tracks']['items']
-        if tracks:
-            track_uri = tracks[0]['uri']
-            sp.start_playback(uris=[track_uri])
-            print(f"Playing: {tracks[0]['name']} by {tracks[0]['artists'][0]['name']}")
+        if "playlist:" in query:
+            # Extract playlist URI and play
+            playlist_uri = query.split("playlist:")[1].strip()
+            sp.start_playback(context_uri=playlist_uri)
+        else:
+            # Search for a track
+            results = sp.search(q=query, limit=1, type='track')
+            tracks = results['tracks']['items']
+            if tracks:
+                track_uri = tracks[0]['uri']
+                sp.start_playback(uris=[track_uri])
     except Exception as e:
         print(f"Error in search_and_play: {e}")
+
+def skip_current_track():
+    try:
+        sp.next_track()
+        print("Skipped to next track.")
+    except Exception as e:
+        print(f"Error skipping track: {e}")
