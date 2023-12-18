@@ -34,7 +34,7 @@ def handle_sms(sms_content, sender_number):
     global current_song_playing
     if 'skip' in sms_content.lower():
         skip_current_track()
-        send_sms_response("Skipping current track.", sender_number)
+        send_sms_response("track skipped.", sender_number)
     elif 'remove' in sms_content.lower():
         # Placeholder for future remove functionality
         send_sms_response("Remove functionality not implemented yet.", sender_number)
@@ -52,6 +52,28 @@ def play_music_from_queue():
         elif current_song_playing and not is_track_playing():
             current_song_playing = False
         time.sleep(1)
+
+
+        # Add your phone number for authorization
+MY_PHONE_NUMBER = '+4792962828'
+
+def handle_sms(sms_content, sender_number):
+    global current_song_playing
+    if sender_number == MY_PHONE_NUMBER and '#playnow' in sms_content.lower():
+        # Immediate playback for special tag
+        song_request = sms_content.replace('#playnow', '').strip()
+        search_and_play(song_request)
+        send_sms_response("Playing your request immediately.", sender_number)
+    elif 'skip' in sms_content.lower():
+        skip_current_track()
+        send_sms_response("Skipping current track.", sender_number)
+    elif 'remove' in sms_content.lower():
+        # Placeholder for future remove functionality
+        send_sms_response("Remove functionality not implemented yet.", sender_number)
+    else:
+        song_queue.put((sms_content, sender_number))
+        send_sms_response("Your request is added to the queue.", sender_number)
+
 
 # Initialize modem
 init_modem()

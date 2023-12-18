@@ -1,11 +1,11 @@
-# spotify_controller.py
-
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import re
+
 
 # Spotify Credentials and Setup
-SPOTIFY_CLIENT_ID = '2978daaf8a6845b9bd5036c89fe33179'
-SPOTIFY_CLIENT_SECRET = '37d229b68df74e4ba187be68b61d9ff3'
+SPOTIFY_CLIENT_ID = 'e13ceed3a5d84229954c8c49bb497124'
+SPOTIFY_CLIENT_SECRET = '16fa064bf7b04f86ba7afefacc221b29'
 SPOTIFY_REDIRECT_URI = 'http://localhost:8888/callback'
 
 # Initialize Spotify client
@@ -24,19 +24,22 @@ def is_track_playing():
 
 def search_and_play(query):
     try:
-        if "playlist:" in query:
-            # Extract playlist URI and play
-            playlist_uri = query.split("playlist:")[1].strip()
+        # Check for HTTP Spotify link for a playlist with optional parameters
+        match = re.search(r'open\.spotify\.com/playlist/([a-zA-Z0-9]+)', query)
+        if match:
+            # Extract playlist ID and convert to URI
+            playlist_id = match.group(1)
+            playlist_uri = f'spotify:playlist:{playlist_id}'
             sp.start_playback(context_uri=playlist_uri)
         else:
-            # Search for a track
+            # Existing logic for track search
             results = sp.search(q=query, limit=1, type='track')
             tracks = results['tracks']['items']
             if tracks:
                 track_uri = tracks[0]['uri']
                 sp.start_playback(uris=[track_uri])
     except Exception as e:
-        print(f"Error in search_and_play: {e}")
+        print(f"Error in search_and_play for '{query}': {e}")
 
 def skip_current_track():
     try:
