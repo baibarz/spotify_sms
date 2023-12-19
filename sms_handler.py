@@ -2,8 +2,8 @@ import serial
 import time
 
 # Configure serial port for GSM modem
- ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
-#ser = serial.Serial('COM2', 9600, timeout=1)
+#ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+ser = serial.Serial('COM2', 9600, timeout=1)
 
 def send_at_command(command, delay=0.5):
     try:
