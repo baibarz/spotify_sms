@@ -4,8 +4,8 @@ import re
 
 
 # Spotify Credentials and Setup
-SPOTIFY_CLIENT_ID = 'e13ceed3a5d84229954c8c49bb497124'
-SPOTIFY_CLIENT_SECRET = '16fa064bf7b04f86ba7afefacc221b29'
+SPOTIFY_CLIENT_ID = ''
+SPOTIFY_CLIENT_SECRET = ''
 SPOTIFY_REDIRECT_URI = 'http://localhost:8888/callback'
 
 # Initialize Spotify client
