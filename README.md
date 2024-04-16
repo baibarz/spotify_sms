@@ -29,23 +29,3 @@ Update the spotify_controller.py with your Spotify Client ID, Client Secret, and
 Set the correct serial port in sms_handler.py for the GSM modem.
 Usage
 Initialize the Modem:
-
-python
-Copy code
-from sms_handler import init_modem
-init_modem()
-Run the Main Application:
-
-bash
-Copy code
-python main.py
-How to Contribute
-Contributions to the project are welcome! Please follow these steps:
-
-Fork the repository.
-Create a new branch for your feature (git checkout -b feature/AmazingFeature).
-Commit your changes (git commit -m 'Add some AmazingFeature').
-Push to the branch (git push origin feature/AmazingFeature).
-Open a pull request.
-License
-MIT License
